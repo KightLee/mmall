@@ -93,6 +93,7 @@ public class UserServiceimpl implements IUserService {
     /*
     检查答案
      */
+    @Override
     public ServiceResponse<String> checkAnswer(String username,String question,String answer){
         int resultCount = userMapper.checkAnswer(username,question,answer);
         //进了判断就是答案正确
@@ -103,6 +104,7 @@ public class UserServiceimpl implements IUserService {
         }
         return ServiceResponse.createByErrorMessage("问题的答案错误");
     }
+    @Override
     public ServiceResponse<String> forgetResetPassword(String username,String password,String forgetToken){
         if(StringUtils.isNotBlank(forgetToken)){
             return ServiceResponse.createByErrorMessage("需要传递token");
@@ -122,6 +124,7 @@ public class UserServiceimpl implements IUserService {
         }
         return ServiceResponse.createByErrorMessage("修改密码失败");
     }
+    @Override
     public ServiceResponse<String> resetPassword(String passwordOld,String passwordNew,User user){
         //不带id的话等下通过接口测试就能测到密码
         int resultCout = userMapper.checkPassword(MD5Util.MD5EncodeUtf8(passwordOld),user.getId());
@@ -136,6 +139,7 @@ public class UserServiceimpl implements IUserService {
             return ServiceResponse.createByErrorMessage("密码更新失败");
         }
     }
+    @Override
     public ServiceResponse<User> updateInformation(User user){
         //username不能更新
         int resultCout = userMapper.checkEmailByUserId(user.getEmail(),user.getId());
@@ -154,6 +158,7 @@ public class UserServiceimpl implements IUserService {
         }
         return ServiceResponse.createByErrorMessage("更新个人信息失败");
     }
+    @Override
     public ServiceResponse<User> getInformation(Integer userId){
         User user = userMapper.selectByPrimaryKey(userId);
         if(user==null){
@@ -163,6 +168,7 @@ public class UserServiceimpl implements IUserService {
         return ServiceResponse.createBySuccess(user);
     }
     //检查是不是管理员
+    @Override
     public ServiceResponse checkAdminRole(User user){
         if(user!=null&&user.getRole().intValue()==Const.Role.ROLE_ADMIN){
             return ServiceResponse.createBySuccess();

@@ -28,7 +28,7 @@ public class ProductServiceImpl implements IProductService {
     private ProductMapper productMapper;
     @Autowired
     private CategoryMapper categoryMapper;
-
+    @Override
     public ServiceResponse saveOrupdateProduct(Product product) {
         if (product != null) {
             if (StringUtils.isNotBlank(product.getSubImages())) {
@@ -56,7 +56,7 @@ public class ProductServiceImpl implements IProductService {
         return ServiceResponse.createByErrorMessage("新增或更新产品参数不正确");
 
     }
-
+    @Override
     public ServiceResponse<String> setSaleStatus(Integer productId, Integer status) {
         if (productId == null || status == null) {
             return ServiceResponse.createByErrorCodeMessage(ResponseCode.ILLEGAL_ARGUMENT.getCode(),
@@ -112,7 +112,7 @@ public class ProductServiceImpl implements IProductService {
         productDetailVo.setUpdateTime(DateTimeUtil.dateToStr(product.getUpdateTime()));
         return productDetailVo;
     }
-
+    @Override
     public ServiceResponse getProductList(int pageNum, int pageSize) {
         //startPage
         //填充自己的sql逻辑
@@ -143,7 +143,7 @@ public class ProductServiceImpl implements IProductService {
         productListVo.setStatus(product.getStatus());
         return productListVo;
     }
-
+    @Override
     public ServiceResponse<PageInfo> searchProduct(String productName, Integer productId, int pageNum, int pageSize) {
         PageHelper.startPage(pageNum, pageSize);
         if (StringUtils.isNotBlank(productName)) {

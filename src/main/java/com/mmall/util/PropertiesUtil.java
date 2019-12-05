@@ -9,17 +9,13 @@ import java.io.InputStreamReader;
 import java.util.Properties;
 
 /**
- * Created by geely
+ *  读取配置文件
+ *  create by lixing
  */
 public class PropertiesUtil {
 
     private static Logger logger = LoggerFactory.getLogger(PropertiesUtil.class);
-
     private static Properties props;
-
-    public static void main(String[] args) {
-
-    }
     static {
         String fileName = "mmall.properties";
         props = new Properties();
